@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PegawaiController extends Controller
 {
@@ -12,7 +13,10 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        return view('pegawai.index');
+        $data = Pegawai::orderBy('nama', 'asc');
+        return DataTables::of($data)
+            ->AddIndexColumn()
+            ->make(true);
     }
 
     /**
