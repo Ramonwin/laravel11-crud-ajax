@@ -41,7 +41,8 @@
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <!-- TOMBOL TAMBAH DATA -->
             <div class="pb-3">
-                <a href='' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Tambah
+                <a href='' class="btn btn-primary tombol-tambah" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">+ Tambah
                     Data</a>
             </div>
             <table class="table table-striped table-bordered" id="myTable">
@@ -77,7 +78,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="tombol-simpan">Save</button>
+                        <button type="button" class="btn btn-primary tombol-simpan">Save</button>
                     </div>
                 </div>
             </div>
@@ -87,55 +88,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
     </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/2.1.4/js/dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
-        //  $(document).ready(function() {
-        //     $('#myTable').DataTable({
-        //         processing: true,
-        //         serverside: true,
-        //         ajax: "{{ url('pegawaiAjax') }}",
-        //         columns: [{
-        //             data: 'DT_RowIndex',
-        //             name: 'DT_RowIndex',
-        //             orderable: false,
-        //             searchable: false
-        //         }, {
-        //             data: 'nama',
-        //             name: 'Nama'
-        //         }, {
-        //             data: 'email',
-        //             name: 'Email'
-        //         }];
-        //     });
-        // });
-
-
-
-        $('#tombol-simpan').click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "post",
-                url: "{{ url('pegawaiAjax') }}",
-                data: {
-                    nama: $('#nama').val(),
-                    email: $('#email').val()
-                },
-                success: function(response) {
-                    console.log(response);
-                }
+            $('#myTable').DataTable({
+                processing: true,
+                serverside: true,
+                ajax: "{{ url('pegawaiAjax') }}",
+                columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: 'nama',
+                    name: 'Nama'
+                }, {
+                    data: 'email',
+                    name: 'Email'
+                }]
             });
         });
 
-        //GLOBAL SETUP UNTUK AJAX
+        // GLOBAL SETUP 
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        // 02_PROSES SIMPAN 
+        $('body').on('click', '.tombol-tambah', function(e) {
+            e.preventDefault();
+            $('#exampleModal').modal('show');
+            $('.tombol-simpan').click(function() {
+                simpan();
+            });
         });
     </script>
 </body>

@@ -13,7 +13,8 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $data = Pegawai::orderBy('nama', 'asc');
+        $data = Pegawai::orderBy('id', 'desc')->get();
+        //     return view('pegawai.index', compact('data'));
         return DataTables::of($data)
             ->AddIndexColumn()
             ->make(true);
@@ -36,6 +37,14 @@ class PegawaiController extends Controller
             'nama' => $request->nama,
             'email' => $request->email,
         ];
+        Pegawai::create($data);
+
+        //return response
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Data Berhasil Disimpan!',
+        //     'data'    => $data
+        // ]);
     }
 
     /**
