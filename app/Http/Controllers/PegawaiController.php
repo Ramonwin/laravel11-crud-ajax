@@ -17,6 +17,9 @@ class PegawaiController extends Controller
         //     return view('pegawai.index', compact('data'));
         return DataTables::of($data)
             ->AddIndexColumn()
+            ->AddColumn('aksi', function ($data) {
+                return view('pegawai.tombol')->with('data', $data);
+            })
             ->make(true);
     }
 
