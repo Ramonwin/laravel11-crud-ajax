@@ -29,8 +29,8 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="submit" class="col-sm-2 col-form-label"></label>
-                    <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
+                    <label for="button" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10"><button type="button" class="btn btn-primary" name="button">SIMPAN</button>
                     </div>
                 </div>
             </form>
